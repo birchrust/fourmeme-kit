@@ -1,0 +1,15 @@
+[package]
+name = "fourmeme"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+
+[dependencies]
+alloy = { workspace = true }
+anyhow = { workspace = true }
+rpc = { workspace = true }
+tokio = { workspace = true }
+sender = { workspace = true }
+bloxroute = { workspace = true }
+abi = { workspace = true }

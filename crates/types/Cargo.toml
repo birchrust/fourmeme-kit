@@ -1,0 +1,9 @@
+[package]
+name = "types"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+
+[dependencies]
+iceoryx2 = { workspace = true }

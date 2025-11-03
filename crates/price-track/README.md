@@ -1,0 +1,1 @@
+### Automatically track the price of newly created tokens and save them using IPC; currently only tracking tokens with BNB trading pairs

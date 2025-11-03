@@ -1,0 +1,1 @@
+### Encapsulated some function calls and events of pancakeV2

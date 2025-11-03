@@ -1,0 +1,92 @@
+# 每日依赖更新 / Daily Dependencies Update
+name: Daily Cargo Update
+
+on:
+  schedule:
+    # 每天 UTC 时间 00:00 运行 / Run at 00:00 UTC daily
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # 允许手动触发 / Allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: cargo-update
+  cancel-in-progress: true
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Install Rust toolchain
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustc -V
+          cargo -V
+
+      # 安装 cargo-edit 以使用 cargo upgrade / Install cargo-edit for cargo upgrade
+      - name: Install cargo-edit
+        run: |
+          cargo install cargo-edit
+
+      - name: Run cargo upgrade (updates Cargo.toml)
+        run: |
+          echo "Upgrading dependencies in Cargo.toml..."
+          cargo upgrade --workspace --verbose
+          
+          # 显示 Cargo.toml 的更改 / Show Cargo.toml changes
+          if git diff --quiet Cargo.toml; then
+            echo "No Cargo.toml updates"
+          else
+            echo "Updated Cargo.toml:"
+            git diff Cargo.toml
+          fi
+
+      - name: Run cargo update (updates Cargo.lock)
+        run: |
+          echo "Updating Cargo.lock..."
+          cargo update --verbose
+
+      - name: Check if project builds
+        run: |
+          cargo check --workspace --all-features
+
+      - name: Commit and push changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add Cargo.toml Cargo.lock
+          git add crates/*/Cargo.toml 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          echo "Changes to be committed:"
+          git diff --cached --stat
+
+          echo "chore(deps): upgrade dependencies to latest versions" > /tmp/commit-msg
+          echo "" >> /tmp/commit-msg
+          echo "Updated dependencies in Cargo.toml to their latest versions using cargo upgrade." >> /tmp/commit-msg
+          echo "" >> /tmp/commit-msg
+          echo "Changes include:" >> /tmp/commit-msg
+          echo "- Cargo.toml: Updated version specifications" >> /tmp/commit-msg
+          echo "- Cargo.lock: Updated locked versions" >> /tmp/commit-msg
+          echo "" >> /tmp/commit-msg
+          echo "This is an automated commit by GitHub Actions." >> /tmp/commit-msg
+          
+          git commit -F /tmp/commit-msg
+          git push origin HEAD:${{ github.event.repository.default_branch }}
+          
+          echo "Changes committed and pushed successfully"
+
