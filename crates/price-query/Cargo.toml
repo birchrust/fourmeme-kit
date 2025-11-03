@@ -1,0 +1,21 @@
+[package]
+name = "price-query"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+anyhow = { workspace = true }
+alloy = { workspace = true }
+tracing = { workspace = true }
+logging = { workspace = true }
+rpc = { workspace = true }
+fourmeme = { workspace = true }
+pancake-v2 = { workspace = true }
+dotenvy = { workspace = true }
+iceoryx2 = { workspace = true }
+types = { workspace = true }
+
+dashmap = "6.1.0"

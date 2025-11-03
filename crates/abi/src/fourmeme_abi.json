@@ -1,0 +1,45 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "name": "tokenAddress",
+          "internalType": "address",
+          "type": "address"
+        },
+        {
+          "name": "funds",
+          "internalType": "uint256",
+          "type": "uint256"
+        },
+        {
+          "name": "minAmount",
+          "internalType": "uint256",
+          "type": "uint256"
+        }
+      ],
+      "name": "buyTokenAMAP",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "userAddress",
+          "internalType": "address",
+          "type": "address"
+        },
+        {
+          "name": "tokenQty",
+          "internalType": "uint256",
+          "type": "uint256"
+        }
+      ],
+      "name": "sellToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+}

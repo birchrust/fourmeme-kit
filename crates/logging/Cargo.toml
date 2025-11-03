@@ -1,0 +1,13 @@
+[package]
+name = "logging"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+
+[dependencies]
+tracing = { workspace = true }
+tracing-subscriber = { version = "0.3.20", features = ["time", "env-filter"] }
+tracing-appender = "0.2.3"
+time = { version = "0.3.36", features = ["macros", "formatting", "local-offset"] }
+tokio = { workspace = true }
