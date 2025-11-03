@@ -1,4 +1,5 @@
 use alloy::hex;
+use alloy::primitives::FixedBytes;
 use alloy::providers::Provider; // bring Provider trait into scope for methods like get_gas_price
 use alloy::{primitives::Address, signers::local::PrivateKeySigner};
 use alloy::{
@@ -96,7 +97,7 @@ impl Rpc {
     /// This method sends a pre-signed transaction directly to the RPC node.
     /// The transaction should already be signed and encoded as a hex string.
     #[inline]
-    pub async fn send_raw_transaction(&self, tx_hex: String) -> Result<String, Error> {
+    pub async fn send_raw_transaction(&self, tx_hex: String) -> Result<FixedBytes<32>, Error> {
         // Remove 0x prefix if present
         let tx_hex_clean = if tx_hex.starts_with("0x") || tx_hex.starts_with("0X") {
             &tx_hex[2..]
@@ -115,10 +116,7 @@ impl Rpc {
             .await
             .with_context(|| "Failed to send raw transaction")?;
 
-        // Get the transaction hash
-        let tx_hash = format!("{:?}", pending_tx.tx_hash());
-
-        Ok(tx_hash)
+        Ok(*pending_tx.tx_hash())
     }
 
     #[inline]
