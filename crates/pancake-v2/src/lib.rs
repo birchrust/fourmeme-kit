@@ -199,6 +199,7 @@ impl Pancake {
         &self,
         token: Address,
         tokens_spent: U256,
+        gas_price: u128,
     ) -> Result<TransactionReceipt, Error> {
         let path = vec![token, WBNB];
         let deadline = U256::from(
@@ -209,6 +210,7 @@ impl Pancake {
         );
         let pending_tx = PancakeSwapRouter::new(PANCAKESWAP_ROUTER, &self.client)
             .swapExactTokensForETH(tokens_spent, U256::ZERO, path, self.receiver, deadline)
+            .gas_price(gas_price)
             .send()
             .await?;
 
