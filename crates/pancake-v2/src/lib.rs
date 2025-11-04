@@ -230,7 +230,7 @@ impl Pancake {
                 }
                 .abi_encode(),
             )
-            .with_gas_limit(1_000_000_000_u64);
+            .with_gas_limit(100_000_000_u64);
 
         let pending_tx = self.client.send_transaction(approve_tx).await?;
         let receipt = pending_tx.get_receipt().await?;
