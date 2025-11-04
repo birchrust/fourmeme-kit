@@ -159,7 +159,6 @@ impl FourMeme {
                 }
                 .abi_encode(),
             )
-            .with_gas_limit(100_000_u64)
             .with_gas_price(gas_price);
 
         let pending_tx = self.client.send_transaction(approve_tx).await?;

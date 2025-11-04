@@ -218,7 +218,11 @@ impl Pancake {
 
     /// Approve the pancake swap router to spend the token
     #[inline]
-    pub async fn approve_token(&self, token: Address) -> Result<TransactionReceipt, Error> {
+    pub async fn approve_token(
+        &self,
+        token: Address,
+        gas_price: u128,
+    ) -> Result<TransactionReceipt, Error> {
         let approve_tx = TransactionRequest::default()
             .with_to(token)
             .with_input(
@@ -230,8 +234,7 @@ impl Pancake {
                 }
                 .abi_encode(),
             )
-            .with_gas_limit(100_000_u64);
-
+            .with_gas_price(gas_price);
         let pending_tx = self.client.send_transaction(approve_tx).await?;
         let receipt = pending_tx.get_receipt().await?;
         Ok(receipt)
