@@ -8,7 +8,7 @@ use fourmeme::parser::FourmemeEvent;
 use iceoryx2::{node::NodeBuilder, port::server::Server, service::ipc};
 use pancake_v2::parser::PancakeSwapEvent;
 use rpc::Rpc;
-use tokio::sync::mpsc::unbounded_channel;
+use tokio::{signal, sync::mpsc::unbounded_channel};
 use tracing::info;
 use types::{PriceRequest, PriceResponse};
 
@@ -76,6 +76,10 @@ impl PriceTrack {
                 }
                 Some((event, pair_address)) = pancake_rx.recv() => {
                     self.handle_pancake_event(event, pair_address);
+                }
+                _ = signal::ctrl_c() => {
+                    tracing::info!("Received Ctrl+C, shutting down...");
+                    break;
                 }
                 else => break,
             }
