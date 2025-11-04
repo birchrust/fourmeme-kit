@@ -199,8 +199,8 @@ impl Pancake {
         &self,
         token: Address,
         tokens_spent: U256,
-        gas_price: u128,
     ) -> Result<TransactionReceipt, Error> {
+        let gas_price = self.client.get_gas_price().await?;
         let path = vec![token, WBNB];
         let deadline = U256::from(
             std::time::SystemTime::now()
@@ -220,11 +220,8 @@ impl Pancake {
 
     /// Approve the pancake swap router to spend the token
     #[inline]
-    pub async fn approve_token(
-        &self,
-        token: Address,
-        gas_price: u128,
-    ) -> Result<TransactionReceipt, Error> {
+    pub async fn approve_token(&self, token: Address) -> Result<TransactionReceipt, Error> {
+        let gas_price = self.client.get_gas_price().await?;
         let approve_tx = TransactionRequest::default()
             .with_to(token)
             .with_input(
