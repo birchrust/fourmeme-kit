@@ -171,6 +171,7 @@ impl PriceTrack {
                 };
 
                 self.update_token_price(token, price);
+                info!("Token {:?} price updated to {:?}, reserve0: {:?}, reserve1: {:?}", token, price, reserve0, reserve1);
             }
             PancakeSwapEvent::PairCreated(pair_created) => {
                 if self.exist_token(&pair_created.token0) {
