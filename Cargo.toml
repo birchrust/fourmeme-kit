@@ -39,15 +39,15 @@ once_cell = "1.21.3"
 iceoryx2 = "0.7.0"
 futures-util = "0.3.31"
 
-rpc = { version = "0.1.0", path = "crates/rpc" }
+rpc = { version = "0.2.1", path = "crates/rpc" }
 sender = { version = "0.2.0", path = "crates/sender" }
 pancake-v2 = { version = "0.2.0", path = "crates/pancake-v2" }
-fourmeme = { version = "0.1.0", path = "crates/fourmeme" }
-bloxroute = { version = "0.1.0", path = "crates/bloxroute" }
-abi = { version = "0.1.0", path = "crates/abi" }
-logging = { version = "0.1.0", path = "crates/logging" }
+fourmeme = { version = "0.2.1", path = "crates/fourmeme" }
+bloxroute = { version = "0.2.1", path = "crates/bloxroute" }
+abi = { version = "0.2.1", path = "crates/abi" }
+logging = { version = "0.2.1", path = "crates/logging" }
 transaction-stream = { version = "0.1.0", path = "crates/transaction-stream" }
-types = { version = "0.1.0", path = "crates/types" }
+types = { version = "0.2.1", path = "crates/types" }
 price-track = { version = "0.2.0", path = "crates/price-track" }
 price-query = { version = "0.2.0", path = "crates/price-query" }
 

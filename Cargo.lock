@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "abi"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "alloy",
 ]
@@ -1177,7 +1177,7 @@ dependencies = [
 
 [[package]]
 name = "bloxroute"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "reqwest",
@@ -1885,7 +1885,7 @@ dependencies = [
 
 [[package]]
 name = "fourmeme"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "abi",
  "alloy",
@@ -2812,7 +2812,7 @@ checksum = "34080505efa8e45a4b816c349525ebe327ceaa8559756f0356cba97ef3bf7432"
 
 [[package]]
 name = "logging"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "time",
  "tokio",
@@ -3081,7 +3081,7 @@ dependencies = [
 
 [[package]]
 name = "pancake-v2"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "abi",
  "alloy",
@@ -3271,7 +3271,7 @@ dependencies = [
 
 [[package]]
 name = "price-query"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "alloy",
  "anyhow",
@@ -3289,7 +3289,7 @@ dependencies = [
 
 [[package]]
 name = "price-track"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "alloy",
  "anyhow",
@@ -3705,7 +3705,7 @@ dependencies = [
 
 [[package]]
 name = "rpc"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "alloy",
  "anyhow",
@@ -3978,7 +3978,7 @@ checksum = "cd0b0ec5f1c1ca621c432a25813d8d60c88abe6d3e08a3eb9cf37d97a0fe3d73"
 
 [[package]]
 name = "sender"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "alloy",
  "anyhow",
@@ -4359,7 +4359,7 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 
 [[package]]
 name = "telegram"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "teloxide",
@@ -4847,7 +4847,7 @@ dependencies = [
 
 [[package]]
 name = "transaction-stream"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "alloy",
  "anyhow",
@@ -4890,7 +4890,7 @@ checksum = "562d481066bde0658276a35467c4af00bdc6ee726305698a55b86e61d7ad82bb"
 
 [[package]]
 name = "types"
-version = "0.1.1"
+version = "0.2.1"
 dependencies = [
  "iceoryx2",
 ]
