@@ -1,9 +1,18 @@
 use iceoryx2::prelude::ZeroCopySend;
 
+/// Request type enum
+#[derive(Debug, ZeroCopySend)]
+#[repr(C)]
+pub enum RequestType {
+    GetPrice = 0,
+    RemoveToken = 1,
+}
+
 /// query price request
 #[derive(Debug, ZeroCopySend)]
 #[repr(C)]
 pub struct PriceRequest {
+    pub request_type: RequestType,
     pub token_address: [u8; 20],
 }
 

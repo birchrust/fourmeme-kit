@@ -10,7 +10,7 @@ use pancake_v2::parser::PancakeSwapEvent;
 use rpc::Rpc;
 use tokio::{signal, sync::mpsc::unbounded_channel};
 use tracing::info;
-use types::{PriceRequest, PriceResponse};
+use types::{PriceRequest, PriceResponse, RequestType};
 
 use crate::{fourmeme_track::FourmemeTrack, pancake_track::PancakeTrack};
 
@@ -99,16 +99,28 @@ impl PriceTrack {
         let ipc_server = &self.ipc_server;
 
         if let Some(active_request) = ipc_server.receive()? {
-            // Extract and convert token address
+            // Extract token address
             let token_address = Address::from(active_request.payload().token_address);
-            let price = self.get_token_price(&token_address).unwrap_or(0);
 
-            // build response
-            let response = active_request.loan_uninit()?.write_payload(PriceResponse {
-                wei_per_token: price,
-            });
-
-            response.send()?;
+            match active_request.payload().request_type {
+                RequestType::GetPrice => {
+                    let price = self.get_token_price(&token_address).unwrap_or(0);
+                    // build response
+                    let response = active_request.loan_uninit()?.write_payload(PriceResponse {
+                        wei_per_token: price,
+                    });
+                    response.send()?;
+                }
+                RequestType::RemoveToken => {
+                    self.remove_token(&token_address);
+                    // For remove operations, return 0 as price (not applicable)
+                    let response = active_request.loan_uninit()?.write_payload(PriceResponse {
+                        wei_per_token: 0,
+                    });
+                    response.send()?;
+                    info!("Token {:?} removed via IPC request", token_address);
+                }
+            }
         }
 
         Ok(())
