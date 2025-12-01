@@ -7,7 +7,7 @@ readme.workspace = true
 
 [dependencies]
 tracing = { workspace = true }
-tracing-subscriber = { version = "0.3.20", features = ["time", "env-filter"] }
-tracing-appender = "0.2.3"
+tracing-subscriber = { version = "0.3.22", features = ["time", "env-filter"] }
+tracing-appender = "0.2.4"
 time = { version = "0.3.36", features = ["macros", "formatting", "local-offset"] }
 tokio = { workspace = true }
